@@ -9,9 +9,9 @@ object BuildSettings {
 
   // Makes package (build) metadata available withing source code
   lazy val scalifySettings = Seq(
-    sourceGenerators in Compile += Def.task {
-      val file = (sourceManaged in Compile).value / "settings.scala"
-    IO.write(file, """package me.chuwy.otusbats.generated
+    Compile / sourceGenerators += Def.task {
+      val file = (Compile / sourceManaged).value / "settings.scala"
+      IO.write(file, """package me.chuwy.otusbats.generated
                       |object ProjectMetadata {
                       |  val version = "%s"
                       |  val name = "%s"
@@ -24,7 +24,7 @@ object BuildSettings {
   )
 
   lazy val buildSettings = Seq[Setting[_]](
-    addCompilerPlugin("org.typelevel" %% "kind-projector" % "0.13.0" cross CrossVersion.full)
+    addCompilerPlugin("org.typelevel" %% "kind-projector" % "0.13.3" cross CrossVersion.full)
   )
 
 
